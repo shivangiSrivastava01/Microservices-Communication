@@ -8,7 +8,7 @@
 
 2. Add a `prometheus.yml` file to your project. You can check the configurations from the prometheus file in the project.
 
-### Define the `scrape_configs` Property
+## Define the `scrape_configs` Property
 
 3. Configure the `scrape_configs` property in the `prometheus.yml` file as follows:
 
@@ -39,7 +39,8 @@ scrape_configs:
    c) Access the Prometheus dashboard:
    Open http://192.168.70.95:9090 to view the Prometheus dashboard and monitor the API's status and performance.
 
-Troubleshooting
+## Troubleshooting
+
 5. If step 4b does not work and Docker does not reflect the prometheus.yml file from your Java project:
 
    - Open Docker Desktop.
