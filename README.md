@@ -1,22 +1,51 @@
-PROMETHEUS-DEMO
-======================================================
-1) Build RESTFUL Web service (with an endpoint)
-2) Add prometheus.yml file (configurations can be checked from the prometheus file in the project)
-3) Define the scrape_configs property in prometheus.yml file as below
-   scrape_configs:
-  - job_name: 'test_path' -- this is your application name
-    metrics_path: '/actuator/prometheus' -- this is the endpoint where the data for prometheus metrics is present
+# PROMETHEUS-DEMO
+
+## Build RESTFUL Web Service
+
+1. Create an endpoint for your service.
+
+## Add prometheus.yml File
+
+2. Add a `prometheus.yml` file to your project. You can check the configurations from the prometheus file in the project.
+
+### Define the `scrape_configs` Property
+
+3. Configure the `scrape_configs` property in the `prometheus.yml` file as follows:
+
+```yaml
+scrape_configs:
+  - job_name: 'test_path'           # This is your application name
+    metrics_path: '/actuator/prometheus'  # This is the endpoint where the data for prometheus metrics is present
     scrape_interval: 1s
     static_configs:
-      - targets: [ '192.168.70.95:7025' ]-- here 192.168.70.95 is ip adress of my system and 7025 is the port for the api that we have build in our java application
-4) Now we need to upload the prometheus.yml file on docker.
-5) Follow below steps for this:
-  a) Pull the prometheus image from docker by using command (docker pull prom/prometheus)
-  b) Run the command docker run -p 9090:9090 -v /Users/shivangisrivastava/Documents/MyProjects/ServiceForCommunication/serviceB/src/main/resources/prometheus.yml prom/prometheus
-      where 9090 is the port at which prometheus runs and the path mentioned is the path for preometheus file in the java project
-  c) Access url http://192.168.70.95:9090 - this will open the prometheus dashboard and you can select any metrics to monitor the api's status and performance
+      targets: [ '192.168.70.95:7025' ]  # 192.168.70.95 is the IP address of your system, and 7025 is the port for the API built in your Java application
+```
 
-6) But here is a catch!!! There can be a possibility that step 5b does not work and docker actually does not reflect the prometheus file from the java project we created.
-   In this case we can actually open docker desktop and go to the prometheus container-> go to the files section-> search for prometheus.yml file and copy the changes from
-   our local prometheus file to the one in docker and restart-> follow step 5c after this
-   
+## Upload prometheus.yml File on Docker
+
+4. Follow these steps to upload the `prometheus.yml` file on Docker:
+
+   a) Pull the Prometheus image from Docker:
+   ```
+   docker pull prom/prometheus
+   ```
+   b) Run the Prometheus container with the specified configuration:
+   ```
+   docker run -p 9090:9090 -v /Users/shivangisrivastava/Documents/MyProjects/ServiceForCommunication/serviceB/src/main/resources/prometheus.yml prom/prometheus
+   ```
+   `9090` is the port at which Prometheus runs.
+   The path mentioned is the path to the prometheus.yml file in your Java project.
+
+   c) Access the Prometheus dashboard:
+   Open http://192.168.70.95:9090 to view the Prometheus dashboard and monitor the API's status and performance.
+
+Troubleshooting
+5. If step 4b does not work and Docker does not reflect the prometheus.yml file from your Java project:
+
+   - Open Docker Desktop.
+   - Go to the Prometheus container.
+   - Navigate to the Files section.
+   - Search for the prometheus.yml file.
+   - Copy the changes from your local prometheus.yml file to the one in Docker.
+   - Restart the Prometheus container.
+   - Follow step 4c to access the Prometheus dashboard.
