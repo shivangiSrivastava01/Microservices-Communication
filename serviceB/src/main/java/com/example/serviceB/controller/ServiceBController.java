@@ -2,6 +2,7 @@ package com.example.serviceB.controller;
 
 import com.example.serviceB.config.ServiceAClient;
 import com.example.serviceB.domain.UserResponse;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -32,11 +33,16 @@ public class ServiceBController {
     @Autowired
     private ServiceAClient serviceAClient;
 
+    @HystrixCommand(fallbackMethod = "fallBackSevice")
     @GetMapping("/call-service-A")
     public List<UserResponse> callServiceA(){
 
         return serviceAClient.getUsersFromServiceA();
 
+    }
+
+    public String fallBackSevice() {
+        return "Fallback Hello";
     }
 
     @GetMapping("/call-service-A-for-single-user/{id}")
